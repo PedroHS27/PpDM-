@@ -1,0 +1,98 @@
+import React from 'react';
+import { View, Text, Button, TextInput, Switch } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+
+class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+      rememberMe: false,
+    };
+  }
+
+  render() {
+    return (
+      <View>
+        <Text>Tela Inicial</Text>
+        <TextInput
+          placeholder="Nome de Usuário"
+          onChangeText={(username) => this.setState({ username })}
+        />
+        <TextInput
+          placeholder="Senha"
+          secureTextEntry={true}
+          onChangeText={(password) => this.setState({ password })}
+        />
+        <Switch
+          value={this.state.rememberMe}
+          onValueChange={(value) => this.setState({ rememberMe: value })}
+        />
+        <Button
+          title="Ir para a Tela de Corrida"
+          onPress={() => this.props.navigation.navigate('Corrida')}
+        />
+      </View>
+    );
+  }
+}
+
+class CorridaScreen extends React.Component {
+  render() {
+    return (
+      <View>
+        <Text>Tela de Corrida</Text>
+        <Button
+          title="Iniciar Corrida"
+          onPress={() => this.props.navigation.navigate('Mapa')}
+        />
+      </View>
+    );
+  }
+}
+
+class MapaScreen extends React.Component {
+  render() {
+    return (
+      <View>
+        <Text>Mapa durante a Corrida</Text>
+        {/* Adicione inputs relevantes para a tela de mapa, se necessário */}
+        <Button
+          title="Finalizar Corrida"
+          onPress={() => this.props.navigation.navigate('Resultado')}
+        />
+      </View>
+    );
+  }
+}
+
+class ResultadoScreen extends React.Component {
+  render() {
+    return (
+      <View>
+        <Text>Resultado da Corrida</Text>
+        {/* Adicione inputs relevantes para a tela de resultado, se necessário */}
+        <Button
+          title="Voltar para a Tela Inicial"
+          onPress={() => this.props.navigation.navigate('Home')}
+        />
+      </View>
+    );
+  }
+}
+
+const AppNavigator = createStackNavigator(
+  {
+    Home: HomeScreen,
+    Corrida: CorridaScreen,
+    Mapa: MapaScreen,
+    Resultado: ResultadoScreen,
+  },
+  {
+    initialRouteName: 'Home',
+  }
+);
+
+export default createAppContainer(AppNavigator);
