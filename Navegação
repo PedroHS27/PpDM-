@@ -1,0 +1,74 @@
+import React from 'react';
+import { View, Text, Button } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+
+class HomeScreen extends React.Component {
+  render() {
+    return (
+      <View>
+        <Text>Tela Inicial</Text>
+        <Button
+          title="Ir para a Tela de Corrida"
+          onPress={() => this.props.navigation.navigate('Corrida')}
+        />
+      </View>
+    );
+  }
+}
+
+class CorridaScreen extends React.Component {
+  render() {
+    return (
+      <View>
+        <Text>Tela de Corrida</Text>
+        <Button
+          title="Iniciar Corrida"
+          onPress={() => this.props.navigation.navigate('Mapa')}
+        />
+      </View>
+    );
+  }
+}
+
+class MapaScreen extends React.Component {
+  render() {
+    return (
+      <View>
+        <Text>Mapa durante a Corrida</Text>
+        <Button
+          title="Finalizar Corrida"
+          onPress={() => this.props.navigation.navigate('Resultado')}
+        />
+      </View>
+    );
+  }
+}
+
+class ResultadoScreen extends React.Component {
+  render() {
+    return (
+      <View>
+        <Text>Resultado da Corrida</Text>
+        <Button
+          title="Voltar para a Tela Inicial"
+          onPress={() => this.props.navigation.navigate('Home')}
+        />
+      </View>
+    );
+  }
+}
+
+const AppNavigator = createStackNavigator(
+  {
+    Home: HomeScreen,
+    Corrida: CorridaScreen,
+    Mapa: MapaScreen,
+    Resultado: ResultadoScreen,
+  },
+  {
+    initialRouteName: 'Home',
+  }
+);
+
+export default createAppContainer(AppNavigator);
